@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         let allLabels = [nameLabel, versionLabel, bundleIdLabel]
 
         for label in allLabels {
-            label?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+            label?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
             label?.numberOfLines = 0
             label?.lineBreakMode = .byWordWrapping
             label?.textAlignment = .left
