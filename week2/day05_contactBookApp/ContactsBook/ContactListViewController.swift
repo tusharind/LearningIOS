@@ -36,16 +36,15 @@ class ContactListViewController: UITableViewController {
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 
-    
+    //delegates to handle events like row selection, editing
+ 
     //tells the table how many rows to display
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
     }
+
     
-    //delegates to handle events like row selection, editing
-    
-    
-    //provides a cell for a specific row
+    // This method creates or reuses a cell using:
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
         let contact = contacts[indexPath.row]
