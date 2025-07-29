@@ -1,47 +1,45 @@
-//
-//  ViewController.swift
-//  ProfileCardApp
-//
-//  Created by Coditas on 25/07/25.
-//
 
 import UIKit
 
 class ViewController: UIViewController {
-    
-    @IBOutlet weak var devImage: UIImageView!  //outlet for an image
-    @IBOutlet weak var devName: UILabel!       //outlets for name and description
-    @IBOutlet weak var devDetails: UILabel!
-    
+    @IBOutlet var devImage: UIImageView!
+    @IBOutlet var devName: UILabel!
+    @IBOutlet var devDetails: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Making image circular
-        devImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        devImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        setupView()
+        setupDevImage()
+        setupDevName()
+        setupDevDetails()
+    }
 
-        devImage.layer.cornerRadius = devImage.frame.width / 2
-        devImage.clipsToBounds = true
+    private func setupView() {
+        view.backgroundColor = .black
+    }
+
+    private func setupDevImage() {
         devImage.contentMode = .scaleAspectFit
-        devImage.image = UIImage(named: "myImage")  // Use the name shown in Assets
+        devImage.image = UIImage(named: "myImage")
 
-        
-        // setting the background color
-        view.backgroundColor = UIColor.black
-        
+        // Setting circular shape
+        devImage.layer.cornerRadius = 50 // Assuming fixed size of 100x100
+        devIma
+        ge.clipsToBounds = true
+    }
+
+    private func setupDevName() {
         devName.text = "TusharJ"
-        devDetails.text = "Aspiring iOS Developer in Coditas"
-        
-        // setting style for name label
-        devName.textColor = UIColor.white
+        devName.textColor = .white
         devName.font = UIFont.boldSystemFont(ofSize: 24)
         devName.textAlignment = .center
-        
-        // setting style for developer profile description
-        devDetails.textColor = UIColor.lightGray
+    }
+
+    private func setupDevDetails() {
+        devDetails.text = "Aspiring iOS Developer in Coditas"
+        devDetails.textColor = .lightGray
         devDetails.font = UIFont.systemFont(ofSize: 16)
         devDetails.textAlignment = .center
         devDetails.numberOfLines = 0
     }
 }
-

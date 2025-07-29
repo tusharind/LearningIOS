@@ -1,11 +1,10 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var versionLabel: UILabel!
+    @IBOutlet var bundleIdLabel: UILabel!
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var versionLabel: UILabel!
-    @IBOutlet weak var bundleIdLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLabels()
@@ -14,7 +13,7 @@ class ViewController: UIViewController {
     private func configureLabels() {
         let allLabels = [nameLabel, versionLabel, bundleIdLabel]
 
-        allLabels.forEach { label in
+        for label in allLabels {
             label?.font = .systemFont(ofSize: 18, weight: .regular)
             label?.numberOfLines = 0
             label?.lineBreakMode = .byWordWrapping
