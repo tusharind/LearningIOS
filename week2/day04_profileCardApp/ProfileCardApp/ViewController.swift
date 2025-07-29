@@ -24,8 +24,7 @@ class ViewController: UIViewController {
 
         // Setting circular shape
         devImage.layer.cornerRadius = 50 // Assuming fixed size of 100x100
-        devIma
-        ge.clipsToBounds = true
+        devImage.clipsToBounds = true
     }
 
     private func setupDevName() {

@@ -8,16 +8,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLabels()
+        styleLabels()
     }
 
     private func configureLabels() {
         let allLabels = [nameLabel, versionLabel, bundleIdLabel]
 
-        for label in allLabels {
-            label?.font = .systemFont(ofSize: 18, weight: .regular)
-            label?.numberOfLines = 0
-            label?.lineBreakMode = .byWordWrapping
-            label?.textAlignment = .left
+        func styleLabels(_ labels: [UILabel?]) {
+            for label in labels {
+                label?.font = .systemFont(ofSize: 18, weight: .regular)
+                label?.numberOfLines = 0
+                label?.lineBreakMode = .byWordWrapping
+                label?.textAlignment = .left
+            }
         }
 
         nameLabel.text = "App Name: Project Explorer"
