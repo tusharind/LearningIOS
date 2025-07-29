@@ -1,7 +1,7 @@
 import UIKit
 
-class ContactListViewController: UITableViewController {
-
+class ContactListVC: UITableViewController {
+    
     
     //an array to statistically give data to each cell in the table view
     let contacts = [
@@ -18,7 +18,7 @@ class ContactListViewController: UITableViewController {
         Contact(name: "Uzair Ali", phone: "+91 9876543210", email: "uzzu@example.com",imageName: "uzzu"),
         
     ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         stylingNavigation()
@@ -28,21 +28,21 @@ class ContactListViewController: UITableViewController {
     func stylingNavigation() -> Void {
         self.title = "Contacts"
         let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBlue]
-
-            //  to apply styling to the navigation bar
-            navigationController?.navigationBar.standardAppearance = appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        appearance.configureWithOpaqueBackground()
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.systemBlue]
+        
+        //  to apply styling to the navigation bar
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-
-    //delegates to handle events like row selection, editing
- 
+    
+    
+    
     //tells the table how many rows to display
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
     }
-
+    
     
     // This method creates or reuses a cell using:
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,21 +53,28 @@ class ContactListViewController: UITableViewController {
         
         return cell
     }
-
+    
     //this method is called when the user taps a row.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetail", sender: self)
-    }
-    
-
-    //to pass the data to the details screen through a segue
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail",
-           let detailVC = segue.destination as? ContactDetailViewController,
-           let indexPath = tableView.indexPathForSelectedRow {
-            detailVC.contact = contacts[indexPath.row]
+        //        performSegue(withIdentifier: "showDetail", sender: self)
+        let selectedContact = contacts[indexPath.row]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let detailVC = storyboard.instantiateViewController(withIdentifier: "ContactDetailViewController") as? ContactDetailVC {
+            detailVC.contact = selectedContact
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
+    
+    
+    //to pass the data to the details screen through a segue
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "showDetail",
+    //           let detailVC = segue.destination as? ContactDetailViewController,
+    //           let indexPath = tableView.indexPathForSelectedRow {
+    //            detailVC.contact = contacts[indexPath.row]
+    //        }
+    //    }
 }
+
 
