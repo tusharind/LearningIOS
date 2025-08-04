@@ -1,4 +1,4 @@
-<img                                        src="https://github.com/tusharind/LearningIOS/blob/main/Screenshots/feedbackApp%20view%20%202.png?raw=true" alt="Feedback App View 1" width="400"/>
+<img                                        src="https://github.com/tusharind/LearningIOS/blob/main/Screenshots/feedbackApp%20view%20%201.png?raw=true" alt="Feedback App View 1" width="400"/>
 
 <img                                        src="https://github.com/tusharind/LearningIOS/blob/main/Screenshots/feedbackApp%20view%20%202.png?raw=true" alt="Feedback App View 2" width="400"/>
 
