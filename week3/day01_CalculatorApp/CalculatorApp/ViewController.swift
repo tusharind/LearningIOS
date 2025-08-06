@@ -54,7 +54,9 @@ class ViewController: UIViewController {
                                   y: containerHeight - buttonSize,
                                   width: buttonSize * 2,
                                   height: buttonSize)
-        zeroButton.tag = 0
+        zeroButton.layer.cornerRadius = buttonSize / 2
+        zeroButton.layer.masksToBounds = true
+    
         zeroButton.addTarget(self, action: #selector(digitButtonPressed(_:)), for: .touchUpInside)
         buttonsContainerView.addSubview(zeroButton)
 
@@ -63,6 +65,8 @@ class ViewController: UIViewController {
                                  y: containerHeight - buttonSize,
                                  width: buttonSize,
                                  height: buttonSize)
+        dotButton.layer.cornerRadius = buttonSize / 2
+        dotButton.layer.masksToBounds = true
         dotButton.addTarget(self, action: #selector(digitButtonPressed(_:)), for: .touchUpInside)
         buttonsContainerView.addSubview(dotButton)
 
@@ -75,7 +79,8 @@ class ViewController: UIViewController {
                                   y: containerHeight - (buttonSize * CGFloat(row + 2)),
                                   width: buttonSize,
                                   height: buttonSize)
-            button.tag = number
+            button.layer.cornerRadius = buttonSize / 2
+            button.layer.masksToBounds = true
             button.addTarget(self, action: #selector(digitButtonPressed(_:)), for: .touchUpInside)
             buttonsContainerView.addSubview(button)
         }
@@ -89,7 +94,8 @@ class ViewController: UIViewController {
                                     y: containerHeight - (buttonSize * CGFloat(i + 1)),
                                     width: buttonSize,
                                     height: buttonSize)
-            opButton.tag = 100 + i
+            opButton.layer.cornerRadius = buttonSize / 2
+            opButton.layer.masksToBounds = true
             opButton.addTarget(self, action: #selector(operatorButtonPressed(_:)), for: .touchUpInside)
             buttonsContainerView.addSubview(opButton)
         }
@@ -101,6 +107,7 @@ class ViewController: UIViewController {
                                    y: containerHeight - (buttonSize * 5),
                                    width: buttonSize,
                                    height: buttonSize)
+        clearButton.layer.cornerRadius = buttonSize / 2
         clearButton.layer.masksToBounds = true
         clearButton.addTarget(self, action: #selector(clearDisplay), for: .touchUpInside)
         buttonsContainerView.addSubview(clearButton)
@@ -110,6 +117,7 @@ class ViewController: UIViewController {
                                        y: containerHeight - (buttonSize * 5),
                                        width: buttonSize,
                                        height: buttonSize)
+        leftParenButton.layer.cornerRadius = buttonSize / 2
         leftParenButton.layer.masksToBounds = true
         leftParenButton.addTarget(self, action: #selector(parenthesisButtonTapped(_:)), for: .touchUpInside)
         buttonsContainerView.addSubview(leftParenButton)
@@ -119,6 +127,7 @@ class ViewController: UIViewController {
                                         y: containerHeight - (buttonSize * 5),
                                         width: buttonSize,
                                         height: buttonSize)
+        rightParenButton.layer.cornerRadius = buttonSize / 2
         rightParenButton.layer.masksToBounds = true
         rightParenButton.addTarget(self, action: #selector(parenthesisButtonTapped(_:)), for: .touchUpInside)
         buttonsContainerView.addSubview(rightParenButton)
@@ -148,14 +157,20 @@ class ViewController: UIViewController {
             inputExpression = displayLabel.text ?? ""
             isNewInputStarted = false
         } else {
-            if title == ".", displayLabel.text!.contains(".") {
-                return
+            if title == "." {
+                // Check if the current number already has a decimal point
+                if let currentText = displayLabel.text {
+                    let components = currentText.components(separatedBy: CharacterSet(charactersIn: "+-×÷()"))
+                    if let lastComponent = components.last, lastComponent.contains(".") {
+                        return // Current number already has a decimal point
+                    }
+                }
             }
             displayLabel.text?.append(title)
             inputExpression.append(title)
         }
     }
-
+    
     @objc func operatorButtonPressed(_ sender: UIButton) {
         guard let symbol = sender.currentTitle else { return }
 
