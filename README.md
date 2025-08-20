@@ -1,4 +1,10 @@
+<img src="Screenshots/gallery2.png" width="300"/>
+<img src="Screenshots/gallery3.png" width="300"/>
+<img src="Screenshots/gallery1.png" width="300"/>
+
 <img src="https://github.com/tusharind/LearningIOS/raw/main/Screenshots/feedbackApp%20view%201.png" alt="Feedback App View 1" width="600">
+
+
 
 <img                                        src="https://github.com/tusharind/LearningIOS/blob/main/Screenshots/feedbackApp%20view%20%202.png?raw=true" alt="Feedback App View 2" width="400"/>
 
