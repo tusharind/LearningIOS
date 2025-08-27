@@ -12,9 +12,7 @@ struct GroceryRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.name)
                     .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.primary)
-                
-                
+                    .foregroundColor(.primary)  
             }
         }
         .padding(.vertical, 4)

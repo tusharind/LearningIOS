@@ -22,7 +22,7 @@ class GroceryListVM: ObservableObject {
     }
     
     // MARK: - CRUD Operations
-    func addItem(name: String, section: String = "General") {
+    func addItem(name: String) {
         let newItem = GroceryItem(name: name)
         items.append(newItem)
     }

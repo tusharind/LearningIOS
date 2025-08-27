@@ -52,7 +52,7 @@ struct AddGroceryView: View {
     private func addItem() {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmed.isEmpty {
-            viewModel.addItem(name: trimmed, section: "General")
+            viewModel.addItem(name: trimmed)
             dismiss()
         } else {
             showAlert = true
