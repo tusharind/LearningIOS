@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct ArticleDetailView: View {
     
@@ -9,40 +10,30 @@ struct ArticleDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 
-                // Article image with a nice rounded style
+                // Article image with a nice rounded style (Kingfisher)
                 if let urlStr = article.urlToImage,
                    let url = URL(string: urlStr) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
+                    KFImage(url)
+                        .placeholder {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 16)
                                     .fill(Color.gray.opacity(0.2))
                                     .frame(height: 220)
                                 ProgressView()
                             }
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 220)
-                                .frame(maxWidth: .infinity)
-                                .clipped()
-                                .cornerRadius(16)
-                                .shadow(radius: 4)
-                        case .failure:
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(height: 220)
-                                .overlay(
-                                    Image(systemName: "photo")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.white.opacity(0.7))
-                                )
-                        @unknown default:
-                            EmptyView()
                         }
-                    }
+                        .cancelOnDisappear(true)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 220)
+                        .frame(maxWidth: .infinity)
+                        .clipped()
+                        .cornerRadius(16)
+                        .shadow(radius: 4)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.gray.opacity(0.1), lineWidth: 0.5)
+                        )
                 }
                 
                 // Article content section
