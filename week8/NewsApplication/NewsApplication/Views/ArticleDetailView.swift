@@ -4,78 +4,99 @@ struct ArticleDetailView: View {
     
     @ObservedObject var viewModel: NewsViewModel
     let article: Article
-
-    // MARK: - Body
+    
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 20) {
                 
-                // MARK: - Article Image from API
+                // Article image with a nice rounded style
                 if let urlStr = article.urlToImage,
-                   let url = URL(string: urlStr){
+                   let url = URL(string: urlStr) {
                     AsyncImage(url: url) { phase in
                         switch phase {
                         case .empty:
-                            ProgressView()
-                                .frame(height: 250)
-                                .frame(maxWidth: .infinity)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(Color.gray.opacity(0.2))
+                                    .frame(height: 220)
+                                ProgressView()
+                            }
                         case .success(let image):
                             image
                                 .resizable()
                                 .scaledToFill()
-                                .frame(height: 250)
+                                .frame(height: 220)
                                 .frame(maxWidth: .infinity)
                                 .clipped()
+                                .cornerRadius(16)
+                                .shadow(radius: 4)
                         case .failure:
-                            Color.gray.opacity(0.3)
-                                .frame(height: 250)
-                                .frame(maxWidth: .infinity)
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(height: 220)
+                                .overlay(
+                                    Image(systemName: "photo")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.white.opacity(0.7))
+                                )
                         @unknown default:
                             EmptyView()
                         }
                     }
                 }
-
-                // MARK: - Article Content
-                VStack(alignment: .leading, spacing: 12) {
+                
+                // Article content section
+                VStack(alignment: .leading, spacing: 16) {
                     
                     // Title
                     Text(article.title.trimmingCharacters(in: .whitespacesAndNewlines))
-                        .font(.title2)
-                        .bold()
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    // Description
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .lineSpacing(4)
+                    
+                    // Description if available
                     if let desc = article.description,
                        !desc.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         Text(desc.trimmingCharacters(in: .whitespacesAndNewlines))
                             .font(.body)
                             .foregroundColor(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
+                            .lineSpacing(3)
                     }
-
-                    // MARK: - Buttons and Links
-                    HStack {
-                        // Bookmark Button
-                        Button(action: { viewModel.toggleBookmark(article) }) {
-                            HStack {
-                                Image(systemName: viewModel.isBookmarked(article) ? "bookmark.fill" : "bookmark")
-                                Text(viewModel.isBookmarked(article) ? "Bookmarked" : "Bookmark")
-                            }
-                            .foregroundColor(.white)
+                    
+                    // Action buttons
+                    HStack(spacing: 16) {
+                        
+                        // Bookmark toggle
+                        Button {
+                            viewModel.toggleBookmark(article)
+                        } label: {
+                            Label(
+                                viewModel.isBookmarked(article) ? "Bookmarked" : "Bookmark",
+                                systemImage: viewModel.isBookmarked(article) ? "bookmark.fill" : "bookmark"
+                            )
+                            .font(.callout.bold())
                             .padding(.vertical, 10)
-                            .padding(.horizontal, 20)
-                            .background(Color.blue)
-                            .cornerRadius(10)
+                            .padding(.horizontal, 18)
+                            .background(viewModel.isBookmarked(article) ? Color.green : Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .shadow(radius: 2)
                         }
-
+                        
                         Spacer()
-
-                        // Read Full Article Link
+                        
+                        // External link
                         if let url = URL(string: article.url) {
-                            Link("Read Full Article", destination: url)
-                                .font(.body.bold())
-                                .foregroundColor(.blue)
+                            Link(destination: url) {
+                                Label("Read More", systemImage: "arrow.up.right.square")
+                                    .font(.callout.bold())
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 18)
+                                    .background(Color.orange.opacity(0.9))
+                                    .foregroundColor(.white)
+                                    .cornerRadius(12)
+                                    .shadow(radius: 2)
+                            }
                         }
                     }
                 }
@@ -85,6 +106,6 @@ struct ArticleDetailView: View {
         }
         .navigationTitle("Article")
         .navigationBarTitleDisplayMode(.inline)
+        .background(Color(.systemGroupedBackground))
     }
 }
-
