@@ -18,9 +18,11 @@ struct NewsResponse: Codable {
     let articles: [Article]
 }
 
-enum categories{
+enum Categories: String, CaseIterable, Identifiable{
       case .All = "All"
       case .Sports = "Sports"
       case .Business = "Business"
       case .Technology = "Technology"
+
+    var id:String { self.rawValue }
 }
