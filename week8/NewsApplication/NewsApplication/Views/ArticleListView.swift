@@ -5,8 +5,6 @@ struct ArticleListView: View {
     @ObservedObject var viewModel: NewsViewModel
     @State private var selectedCategory = "All"
 
-    private let categories = ["All", "Business", "Sports", "Technology"]
-
     // MARK: - Body
     var body: some View {
         NavigationStack {
