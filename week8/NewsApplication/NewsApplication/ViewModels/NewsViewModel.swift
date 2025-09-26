@@ -22,16 +22,11 @@ final class NewsViewModel: ObservableObject {
     
     // Public function the view can call when user switches category
     func fetchArticles(for category: String = "All") {
-        // cancel any ongoing request
-        fetchTask?.cancel()
-        
-        fetchTask = Task {
-            await _fetchArticles(for: category)
-        }
+            await fetchArticles(for: category)
     }
     
     // Actual async fetch logic, hidden from outside
-    private func _fetchArticles(for category: String) async {
+    private func fetchArticles(for category: String) async {
         guard !Task.isCancelled else { return }
         
         isLoading = true
