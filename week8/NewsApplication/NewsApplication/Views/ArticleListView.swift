@@ -17,7 +17,9 @@ struct ArticleListView: View {
 
                     // MARK: - Segmented View for news categories
                     Picker("Category", selection: $selectedCategory) {
-                        ForEach(categories, id: \.self) { Text($0) }
+                        ForEach(Categories.allCases) { category in
+                                             Text(category.rawValue).tag(category)       
+                                                     }
                     }
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
