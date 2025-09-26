@@ -17,3 +17,10 @@ struct Article: Codable, Identifiable {
 struct NewsResponse: Codable {
     let articles: [Article]
 }
+
+enum categories{
+      case .All = "All"
+      case .Sports = "Sports"
+      case .Business = "Business"
+      case .Technology = "Technology"
+}
