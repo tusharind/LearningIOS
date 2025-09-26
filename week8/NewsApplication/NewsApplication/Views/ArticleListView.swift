@@ -79,11 +79,11 @@ struct ArticleListView: View {
             // MARK: - Lifecycle Events
             .task(id: selectedCategory) {
                 // Fetch articles when category changes
-                viewModel.fetchArticles(for: selectedCategory)
+                await viewModel.fetchArticles(for: selectedCategory)
             }
             .refreshable {
                 // Pull-to-refresh feels natural for news
-                viewModel.fetchArticles(for: selectedCategory)
+               await  viewModel.fetchArticles(for: selectedCategory)
             }
         }
     }
