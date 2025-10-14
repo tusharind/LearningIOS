@@ -9,7 +9,7 @@ struct DiaryEntry: Identifiable, Codable {
     var date: Date
     var fontName: String
     
-    /// Sample data for previews/testing
+    /// Sample data for previews
     static var sampleData: [DiaryEntry] {
         [
             DiaryEntry(
