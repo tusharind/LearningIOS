@@ -1,21 +1,24 @@
 import SwiftUI
 
 struct BookmarksView: View {
-
+    
     @ObservedObject var viewModel: NewsViewModel
-
-    // MARK: - Bookmark View
+    
     var body: some View {
         NavigationStack {
-            // MARK: - Content
+            
+            // Show message if there’s nothing saved
             if viewModel.bookmarkedArticles.isEmpty {
-                // If no bookmarks
-                Text("No bookmarks yet.")
-                    .foregroundColor(.secondary)
-                    .italic()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                VStack {
+                    Text("No bookmarks yet.")
+                        .foregroundColor(.secondary)
+                        .italic()
+                        .padding()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
             } else {
-                // Bookmarks list
+                // Otherwise show the list of saved articles
                 List(viewModel.bookmarkedArticles) { article in
                     NavigationLink {
                         ArticleDetailView(
@@ -24,11 +27,13 @@ struct BookmarksView: View {
                         )
                     } label: {
                         BookmarkedRowView(article: article)
+                            .padding(.vertical, 4) // small breathing space
                     }
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(.plain)
             }
         }
+        // Top navigation title
         .navigationTitle("Bookmarks")
     }
 }
